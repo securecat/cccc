@@ -14,3 +14,32 @@ You can add CCCC to your home screen or taskbar for quick access, just like a na
 - **Chrome / Edge (desktop)**: Open the URL above, then click the install icon in the address bar
 - **iOS Safari**: Tap the Share button, then "Add to Home Screen"
 - **Android Chrome**: Tap the menu, then "Add to Home Screen"
+
+---
+
+# cccc
+カジュアルカラーコントラストチェッカー
+
+CCCCは、ソフトウェアを自由にインストールできない環境（PowerPointなど）でも、ブラウザ内外を問わずコントラスト比をカジュアルにチェックできるツールです。
+
+## 試してみる
+
+https://securecat.github.io/cccc/
+
+## ホーム画面に追加する
+
+CCCCはネイティブアプリのようにホーム画面やタスクバーに追加できます。
+
+- **Chrome / Edge（デスクトップ）**: 上記URLを開き、アドレスバーのインストールアイコンをクリック
+- **iOS Safari**: 共有ボタンをタップ →「ホーム画面に追加」
+- **Android Chrome**: メニューをタップ →「ホーム画面に追加」
+
+---
+
+## Changelog
+
+### v1.0.1
+- Add version comment
+
+### v1.0.0
+- Initial release
