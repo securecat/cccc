@@ -15,6 +15,14 @@ You can add CCCC to your home screen or taskbar for quick access, just like a na
 - **iOS Safari**: Tap the Share button, then "Add to Home Screen"
 - **Android Chrome**: Tap the menu, then "Add to Home Screen"
 
+## Changelog
+
+### v1.0.1
+- Add version comment
+
+### v1.0.0
+- Initial release
+
 ---
 
 # cccc
@@ -34,12 +42,10 @@ CCCCはネイティブアプリのようにホーム画面やタスクバーに�
 - **iOS Safari**: 共有ボタンをタップ →「ホーム画面に追加」
 - **Android Chrome**: メニューをタップ →「ホーム画面に追加」
 
----
-
 ## Changelog
 
 ### v1.0.1
-- Add version comment
+- バージョンコメントを追加
 
 ### v1.0.0
-- Initial release
+- 初回リリース
