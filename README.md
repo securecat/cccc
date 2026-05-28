@@ -17,10 +17,12 @@ You can add CCCC to your home screen or taskbar for quick access, just like a na
 
 ## Changelog
 
-### v1.0.1 — 2026-03-05
-- Add version comment
+### [1.0.1] - 2026-03-05
+#### Added
+- Version comment in HTML
 
-### v1.0.0 — 2026-03-04
+### [1.0.0] - 2026-03-04
+#### Added
 - Initial release
 
 ---
@@ -44,8 +46,10 @@ CCCCはネイティブアプリのようにホーム画面やタスクバーに�
 
 ## 更新履歴
 
-### v1.0.1 — 2026-03-05
-- バージョンコメントを追加
+### [1.0.1] - 2026-03-05
+#### 追加
+- HTMLにバージョンコメントを追加
 
-### v1.0.0 — 2026-03-04
+### [1.0.0] - 2026-03-04
+#### 追加
 - 初回リリース
