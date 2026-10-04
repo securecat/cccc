@@ -17,6 +17,10 @@ You can add CCCC to your home screen or taskbar for quick access, just like a na
 
 ## Changelog
 
+### [1.0.2] - 2026-10-05
+#### Changed
+- Write the `meta charset` value in lowercase (`utf-8`) as recommended by the HTML Standard
+
 ### [1.0.1] - 2026-03-05
 #### Added
 - Version comment in HTML
@@ -45,6 +49,10 @@ CCCCはネイティブアプリのようにホーム画面やタスクバーに�
 - **Android Chrome**: メニューをタップ →「ホーム画面に追加」
 
 ## 更新履歴
+
+### [1.0.2] - 2026-10-05
+#### 変更
+- HTML Standard の推奨に合わせ、`meta charset` の値を小文字（`utf-8`）に変更
 
 ### [1.0.1] - 2026-03-05
 #### 追加
