@@ -10,7 +10,7 @@ If the tool for checking contrast is itself hard to use, it gets in the way of p
 
 This statement covers:
 
-- The CCCC web page (https://securecat.github.io/cccc/)
+- [The CCCC web page](https://securecat.github.io/cccc/)
 
 The color dialog that opens when you click a color swatch, including its eyedropper, is not part of CCCC. It is the browser's own color dialog, so its accessibility is outside the scope of this statement. In Chrome and Edge, you can also type a color value in the dialog as RGB, HSL, or HEX with the keyboard, without using the eyedropper.
 
@@ -106,7 +106,7 @@ CCCC（カジュアルカラーコントラストチェッカー）は、それ�
 
 この文書が対象とするのは、次のとおりです。
 
-- CCCC のウェブページ（https://securecat.github.io/cccc/）
+- [CCCC のウェブページ](https://securecat.github.io/cccc/)
 
 色見本をクリックすると開く色選択ダイアログ（スポイトを含む）は、CCCC の一部ではなく、ブラウザ標準の機能です。そのため、ダイアログの中のアクセシビリティは、この文書の対象外です。なお、Chrome、Edge の色選択ダイアログでは、スポイトを使わずに、色の値を RGB、HSL、HEX でキーボードから入力することもできます。
 
