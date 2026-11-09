@@ -32,14 +32,11 @@ For the UI, we target WCAG 2.2 Level AA, and we treat it as a minimum, not a cei
 - Screen readers: tested with NVDA on Windows. We have not yet tested other screen readers, including PC-Talker and VoiceOver
 - All of CCCC's own controls are native buttons and color inputs, so they can be operated with a keyboard alone
 - When you choose a color or swap the two colors, the colors, the contrast ratio, and the results are announced through a live region
+- The page opens in the light or dark theme according to your browser's color scheme setting. You can also switch the theme with the button at the top right, but your choice is not saved
 
 ## Known Limitations
 
 - **The text in the preview may not meet the contrast criteria.** The preview shows text in the colors you chose, so its contrast depends on those colors. This is by design.
-- **In the light theme, the word "カラー" in the title is 4.55:1 against the background,** below the 7:1 target for body text in [Contributor Expectations](#contributor-expectations).
-- **When you copy a HEX value, there is no message saying it was copied.** The copy button only changes color while it is pressed, and screen readers don't announce anything.
-  - Workaround: Check the result by pasting the value where you need it.
-- **The theme doesn't follow the OS dark mode setting, and your choice is not saved,** so the page always opens in the light theme.
 - **The UI is available in Japanese only.**
 
 ## Reporting Accessibility Barriers
@@ -131,14 +128,11 @@ UIは WCAG 2.2 のレベル AA を目標とし、これを上限ではなく下�
 - スクリーンリーダー：Windows の NVDA で読み上げを確認済み。PC-Talker、VoiceOver など、ほかのスクリーンリーダーではまだ試していません
 - CCCC 自身の操作部品は、すべてネイティブのボタンと色の選択欄なので、キーボードだけで操作できます
 - 色を選んだときと、2色を入れ替えたときは、2つの色・コントラスト比・判定結果をライブリージョンで読み上げます
+- ページは、ブラウザのカラースキームの設定に合わせて、ライトテーマかダークテーマで開きます。右上のボタンで切り替えることもできますが、切り替えたテーマは保存されません
 
 ## 既知の制限
 
 - **プレビューの文字は、コントラストの基準を満たさないことがあります。** プレビューは選んだ色そのもので表示するため、コントラストは選んだ色によって決まります。これは意図したものです。
-- **ライトテーマで、タイトルの「カラー」の文字は、背景に対して 4.55:1 です。** [貢献者への期待](#貢献者への期待)の本文の基準（7:1）に届いていません。
-- **HEX値をコピーしても、コピーしたことを知らせるメッセージは出ません。** コピーボタンは押している間だけ色が変わり、スクリーンリーダーでは何も読み上げられません。
-  - 回避策：コピーできたかどうかは、貼り付け先で確かめてください。
-- **テーマは OS のダークモードの設定に連動せず、選んだテーマも保存されません。** ページを開くと、常にライトテーマで始まります。
 - **UIは日本語のみです。**
 
 ## アクセシビリティの問題を報告する
