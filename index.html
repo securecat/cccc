@@ -6,24 +6,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>カジュアルカラーコントラストチェッカー</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 /* =============================================
    カラーパレット（コントラスト確認済み）
    Light:
-     text #1a1a1a on bg #f4f4f8 → 18.7:1 ✓
-     label #3d3d3d on bg #f4f4f8 → 9.8:1 ✓
-     border-ui #767676 on bg #ffffff → 4.54:1 ✓ (非テキスト3:1以上)
-     pass-text #1d7a6e on pass-bg #e6f7f5 → 4.6:1 ✓
-     fail-text #b91c1c on fail-bg #fef2f2 → 5.6:1 ✓
+     text #1a1a1a on bg #f4f4f8 → 15.86:1 ✓ / on card #ffffff → 17.40:1 ✓
+     label #3d3d3d on bg #f4f4f8 → 9.90:1 ✓ / on card #ffffff → 10.86:1 ✓
+     border-ui #767676 on bg #f4f4f8 → 4.14:1 ✓ / on card #ffffff → 4.54:1 ✓ (非テキスト3:1以上)
+     pass #14534d on card #ffffff → 8.85:1 ✓ (判定の文字・枠)
+     fail #991b1b on card #ffffff → 8.31:1 ✓ (判定の文字・枠)
+     accent #C54141 on bg #f4f4f8 → 4.55:1 / on card #ffffff → 4.99:1
    Dark:
-     text #f5f3ff on bg #12111f → 18.1:1 ✓
-     label #d0cef0 on bg #1e1c30 → 8.4:1 ✓
-     border-ui #9896c0 on bg #1e1c30 → 3.2:1 ✓
-     pass-text #6ee7d8 on pass-bg #0e3530 → 5.1:1 ✓
-     fail-text #fca5a5 on fail-bg #3b1010 → 5.3:1 ✓
+     text #f5f3ff on bg #12111f → 17.01:1 ✓ / on card #1e1c30 → 15.15:1 ✓
+     label #d0cef0 on card #1e1c30 → 10.89:1 ✓
+     border-ui #9896c0 on bg #12111f → 6.63:1 ✓ / on card #1e1c30 → 5.90:1 ✓
+     pass #6ee7d8 on card #1e1c30 → 11.14:1 ✓
+     fail #fca5a5 on card #1e1c30 → 8.75:1 ✓
+     accent #f47272 on bg #12111f → 6.66:1 / on card #1e1c30 → 5.93:1
 ============================================= */
 
 :root {
@@ -32,23 +32,11 @@
   --text:            #1a1a1a;
   --label:           #3d3d3d;
   --border-ui:       #767676;
-  --border-soft:     #c0bfd0;
-  --swatch-border:   #949494;
-  --pass-bg:         #e6f7f5;
-  --pass-text:       #1d7a6e;
-  --pass-border:     #2bb5a0;
-  --fail-bg:         #fef2f2;
-  --fail-text:       #b91c1c;
-  --fail-border:     #ef4444;
-  --banner-ok-bg:    #d1faf5;
-  --banner-ok-text:  #14534d;
-  --banner-ok-bd:    #2bb5a0;
-  --banner-ng-bg:    #fee2e2;
-  --banner-ng-text:  #991b1b;
-  --banner-ng-bd:    #ef4444;
-  --accent:          #C54141;  /* #C54141 on #ffffff → 4.55:1 ✓ */
+  --pass:            #14534d;
+  --fail:            #991b1b;
+  --accent:          #C54141;
   --radius: 18px;
-  --f: 'Zen Maru Gothic', sans-serif;
+  --f: sans-serif;
 }
 
 body.dark {
@@ -57,21 +45,9 @@ body.dark {
   --text:            #f5f3ff;
   --label:           #d0cef0;
   --border-ui:       #9896c0;
-  --border-soft:     #3a3860;
-  --swatch-border:   #949494;
-  --pass-bg:         #0e3530;
-  --pass-text:       #6ee7d8;
-  --pass-border:     #2bb5a0;
-  --fail-bg:         #3b1010;
-  --fail-text:       #fca5a5;
-  --fail-border:     #ef4444;
-  --banner-ok-bg:    #0a2e2a;
-  --banner-ok-text:  #5eead4;
-  --banner-ok-bd:    #2bb5a0;
-  --banner-ng-bg:    #3b1010;
-  --banner-ng-text:  #fca5a5;
-  --banner-ng-bd:    #ef4444;
-  --accent:          #f47272;  /* #f47272 on #1e1c30 → 4.6:1 ✓ */
+  --pass:            #6ee7d8;
+  --fail:            #fca5a5;
+  --accent:          #f47272;
 }
 
 body {
@@ -86,6 +62,19 @@ body {
   justify-content: center;
   padding: 1.5rem 1rem;
   transition: background 0.35s, color 0.35s;
+}
+
+/* 視覚的に隠し、スクリーンリーダーには読ませる */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ── テーマボタン ── */
@@ -107,7 +96,7 @@ body {
   z-index: 100;
   transition: background 0.35s, color 0.35s, border-color 0.35s;
 }
-.theme-toggle:hover { opacity: 0.8; }
+.theme-toggle:hover { background: var(--bg); }
 
 /* ── レイアウト ── */
 .app {
@@ -165,42 +154,42 @@ body {
   margin-bottom: 0.75rem;
 }
 
-/* カラースウォッチ */
+/* カラースウォッチ（input[type="color"] そのものを色見本として表示する） */
 .color-trigger {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
-  border-radius: 12px;
-  cursor: pointer;
   margin-bottom: 0.75rem;
   transition: transform 0.15s;
 }
 .color-trigger:hover { transform: scale(1.03); }
 
 .color-trigger input[type="color"] {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
-  opacity: 0;
+  padding: 0;
+  border: 2px solid var(--border-ui);
+  border-radius: 12px;
+  background: none;
   cursor: pointer;
-  border: none;
-  border-radius: 12px;
 }
-
-.color-swatch {
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  border: 2px solid var(--swatch-border);
-  transition: background-color 0.15s;
-  pointer-events: none;
+.color-trigger input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+.color-trigger input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 10px;
+}
+.color-trigger input[type="color"]::-moz-color-swatch {
+  border: none;
+  border-radius: 10px;
 }
 
 .eyedrop-badge {
   position: absolute;
   bottom: 8px; right: 8px;
-  background: rgba(255,255,255,0.93);
+  background: #ffffff;
   border: 1.5px solid #767676;
   border-radius: 8px;
   padding: 3px 8px;
@@ -263,12 +252,19 @@ body {
   cursor: pointer;
   color: var(--text);
   flex-shrink: 0;
-  transition: all 0.22s;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 .swap-btn:hover {
-  transform: rotate(180deg) scale(1.1);
   border-color: var(--accent);
   color: var(--accent);
+}
+
+/* 押している間は色を反転させる */
+.copy-btn:active,
+.swap-btn:active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--card);
 }
 
 /* ── 結果カード ── */
@@ -306,7 +302,7 @@ body {
 
 /* ── プレビュー ── */
 .section-label {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--label);
   margin-bottom: 0.5rem;
@@ -325,7 +321,7 @@ body {
   font-size: 16px;
   font-weight: 700;
   line-height: 1.5;
-  border: 2px solid var(--swatch-border);
+  border: 2px solid var(--border-ui);
   transition: background 0.15s, color 0.15s;
 }
 .preview-large { font-size: 20px; }
@@ -346,45 +342,36 @@ body {
   border-radius: 12px;
   padding: 0.65rem 0.3rem;
   text-align: center;
-  border: 2px solid var(--border-soft);
-  background: var(--bg);
-  transition: all 0.3s;
+  border: 2px solid var(--border-ui);
+  color: var(--label);
+  transition: border-color 0.3s, color 0.3s;
 }
 .wcag-item.pass {
-  background: var(--pass-bg);
-  border-color: var(--pass-border);
+  border-color: var(--pass);
+  color: var(--pass);
 }
 .wcag-item.fail {
-  background: var(--fail-bg);
-  border-color: var(--fail-border);
+  border-color: var(--fail);
+  color: var(--fail);
 }
 
 .wcag-name {
   font-size: 16px;
   font-weight: 700;
-  color: var(--label);
   line-height: 1.3;
   margin-bottom: 0.25rem;
 }
-.wcag-item.pass .wcag-name { color: var(--pass-text); }
-.wcag-item.fail .wcag-name { color: var(--fail-text); }
 
 .wcag-verdict {
   font-size: 18px;
   font-weight: 900;
-  color: var(--label);
 }
-.wcag-item.pass .wcag-verdict { color: var(--pass-text); }
-.wcag-item.fail .wcag-verdict { color: var(--fail-text); }
 
 .wcag-threshold {
   font-size: 16px;
   font-weight: 500;
-  color: var(--label);
   margin-top: 0.2rem;
 }
-.wcag-item.pass .wcag-threshold { color: var(--pass-text); }
-.wcag-item.fail .wcag-threshold { color: var(--fail-text); }
 
 /* ── バナー ── */
 .aa-banner {
@@ -393,67 +380,28 @@ body {
   font-size: 17px;
   font-weight: 900;
   text-align: center;
-  border: 2px solid transparent;
-  transition: all 0.35s;
+  border: 2px solid var(--border-ui);
+  color: var(--label);
+  transition: border-color 0.35s, color 0.35s;
 }
 .aa-banner.ok {
-  background: var(--banner-ok-bg);
-  color: var(--banner-ok-text);
-  border-color: var(--banner-ok-bd);
+  color: var(--pass);
+  border-color: var(--pass);
 }
 .aa-banner.ng {
-  background: var(--banner-ng-bg);
-  color: var(--banner-ng-text);
-  border-color: var(--banner-ng-bd);
+  color: var(--fail);
+  border-color: var(--fail);
 }
-.aa-banner.init {
-  background: var(--bg);
-  color: var(--label);
-  border-color: var(--border-soft);
-}
-
-/* ── トースト ── */
-.toast {
-  position: fixed;
-  bottom: 2rem; left: 50%;
-  transform: translateX(-50%) translateY(16px);
-  background: var(--text);
-  color: var(--card);
-  font-family: var(--f);
-  font-size: 16px;
-  font-weight: 700;
-  padding: 0.55rem 1.3rem;
-  border-radius: 50px;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 200;
-  transition: opacity 0.22s, transform 0.22s;
-  white-space: nowrap;
-}
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* ── アニメ ── */
-@keyframes pop-in {
-  from { opacity: 0; transform: translateY(12px) scale(0.96); }
-  to   { opacity: 1; transform: translateY(0)    scale(1); }
-}
-.app > * { animation: pop-in 0.4s cubic-bezier(0.34,1.4,0.64,1) both; }
-.title-area  { animation-delay: 0s; }
-.slots-row   { animation-delay: 0.07s; }
-.result-card { animation-delay: 0.14s; }
 </style>
 </head>
 <body>
 
-<button class="theme-toggle" id="themeBtn" aria-label="テーマ切り替え">
+<button class="theme-toggle" id="themeBtn">
   <span id="themeIcon">🌙</span>
-  <span id="themeLabel">ダーク</span>
+  <span id="themeLabel">ダークに変更</span>
 </button>
 
-<div class="app">
+<main class="app">
 
   <!-- タイトル -->
   <div class="title-area">
@@ -463,12 +411,12 @@ body {
 
   <!-- 色選択 -->
   <div class="slots-row">
+    <h2 class="sr-only">比較する2色</h2>
 
     <!-- 文字色 -->
     <div class="slot-card card">
-      <div class="slot-title">🔤 文字の色</div>
+      <h3 class="slot-title">🔤 文字の色</h3>
       <div class="color-trigger">
-        <div class="color-swatch" id="swatchA"></div>
         <input type="color" id="pickerA" value="#1a237e" aria-label="文字の色を選択">
         <div class="eyedrop-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="#1a1a1a" style="vertical-align:middle;margin-right:3px"><path d="M20.71 5.63l-2.34-2.34a1 1 0 00-1.41 0l-3.12 3.12-1.41-1.42-1.42 1.42 1.41 1.41-6.6 6.6A2 2 0 005 16v3h3a2 2 0 001.42-.59l6.6-6.6 1.41 1.41 1.42-1.42-1.42-1.41 3.12-3.12a1 1 0 000-1.64zM8 17H7v-1l6.6-6.6 1 1z"/></svg>スポイト</div>
       </div>
@@ -481,13 +429,12 @@ body {
     </div>
 
     <!-- 入れ替え -->
-    <button class="swap-btn" id="swapBtn" aria-label="2色を入れ替え" title="入れ替え">⇄</button>
+    <button class="swap-btn" id="swapBtn" title="入れ替え">⇄<span class="sr-only">2色を入れ替え</span></button>
 
     <!-- 背景色 -->
     <div class="slot-card card">
-      <div class="slot-title">🟦 背景の色</div>
+      <h3 class="slot-title">🟦 背景の色</h3>
       <div class="color-trigger">
-        <div class="color-swatch" id="swatchB"></div>
         <input type="color" id="pickerB" value="#e8eaf6" aria-label="背景の色を選択">
         <div class="eyedrop-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="#1a1a1a" style="vertical-align:middle;margin-right:3px"><path d="M20.71 5.63l-2.34-2.34a1 1 0 00-1.41 0l-3.12 3.12-1.41-1.42-1.42 1.42 1.41 1.41-6.6 6.6A2 2 0 005 16v3h3a2 2 0 001.42-.59l6.6-6.6 1.41 1.41 1.42-1.42-1.42-1.41 3.12-3.12a1 1 0 000-1.64zM8 17H7v-1l6.6-6.6 1 1z"/></svg>スポイト</div>
       </div>
@@ -502,16 +449,17 @@ body {
 
   <!-- 結果カード -->
   <div class="result-card card">
+    <h2 class="sr-only">判定結果</h2>
 
     <div class="result-header">
-      <span class="result-label">コントラスト比</span>
+      <h3 class="result-label">コントラスト比</h3>
       <div>
         <span class="ratio-number" id="ratioValue">--</span>
         <span class="ratio-unit"> : 1</span>
       </div>
     </div>
 
-    <div class="section-label">プレビュー</div>
+    <h3 class="section-label">プレビュー</h3>
     <div class="preview-row">
       <div class="preview-box" id="previewNormal">
         資料タイトル<br>
@@ -523,7 +471,7 @@ body {
       </div>
     </div>
 
-    <div class="section-label">WCAG 2.2 基準</div>
+    <h3 class="section-label">WCAG 2.2 基準</h3>
     <div class="wcag-grid">
       <div class="wcag-item" id="wAA">
         <div class="wcag-name">AA<br>テキスト</div>
@@ -542,12 +490,13 @@ body {
       </div>
     </div>
 
-    <div class="aa-banner init" id="aaBanner">計算中...</div>
+    <div class="aa-banner" id="aaBanner">計算中...</div>
   </div>
 
-</div>
+  <!-- 判定結果の読み上げ用（色を確定したときと、入れ替えたときに更新する） -->
+  <p class="sr-only" role="status" id="announce"></p>
 
-<div class="toast" id="toast"></div>
+</main>
 
 <script>
   // テーマ
@@ -557,7 +506,7 @@ body {
     isDark = !isDark;
     document.body.classList.toggle('dark', isDark);
     document.getElementById('themeIcon').textContent  = isDark ? '☀️' : '🌙';
-    document.getElementById('themeLabel').textContent = isDark ? 'ライトに戻す' : 'ダーク';
+    document.getElementById('themeLabel').textContent = isDark ? 'ライトに変更' : 'ダークに変更';
   });
 
   const pickerA = document.getElementById('pickerA');
@@ -583,16 +532,18 @@ body {
     document.getElementById(verdictId).textContent = pass ? '✓ OK' : '✗ NG';
   }
 
+  // 直近の判定結果（読み上げ用）
+  let latest = null;
+
   function update() {
     const ca = pickerA.value, cb = pickerB.value;
 
-    document.getElementById('swatchA').style.background = ca;
-    document.getElementById('swatchB').style.background = cb;
     document.getElementById('hexA').textContent = ca.toUpperCase();
     document.getElementById('hexB').textContent = cb.toUpperCase();
 
     const ratio = contrastRatio(ca, cb);
-    document.getElementById('ratioValue').textContent = (Math.floor(ratio * 100) / 100).toFixed(2);
+    const ratioText = (Math.floor(ratio * 100) / 100).toFixed(2);
+    document.getElementById('ratioValue').textContent = ratioText;
 
     ['previewNormal','previewLarge'].forEach(id => {
       const el = document.getElementById(id);
@@ -600,9 +551,10 @@ body {
       el.style.color = ca;
     });
 
-    setWcag('wAA',  'wAAv',  ratio >= 4.5);
-    setWcag('wAAA', 'wAAAv', ratio >= 7.0);
-    setWcag('wNT',  'wNTv',  ratio >= 3.0);
+    const passAA = ratio >= 4.5, passAAA = ratio >= 7.0, passNT = ratio >= 3.0;
+    setWcag('wAA',  'wAAv',  passAA);
+    setWcag('wAAA', 'wAAAv', passAAA);
+    setWcag('wNT',  'wNTv',  passNT);
 
     const banner = document.getElementById('aaBanner');
     if (ratio >= 7.0) {
@@ -618,32 +570,40 @@ body {
       banner.className = 'aa-banner ng';
       banner.textContent = '❌ コントラスト不足！どちらかの色を変えてみて';
     }
+
+    latest = { ca, cb, ratioText, passAA, passAAA, passNT, message: banner.textContent };
+  }
+
+  // 判定結果をライブリージョンで知らせる。
+  // input イベントは色選択ダイアログの操作中に連続して発生するため、
+  // 色を確定した change イベントと、入れ替えのときだけ読み上げる
+  function announce() {
+    const r = latest;
+    const v = pass => pass ? 'OK' : 'NG';
+    document.getElementById('announce').textContent =
+      `文字の色 ${r.ca.toUpperCase()}、背景の色 ${r.cb.toUpperCase()}。` +
+      `コントラスト比 ${r.ratioText} 対 1。` +
+      `AA テキスト ${v(r.passAA)}、AAA テキスト ${v(r.passAAA)}、AA 非テキスト ${v(r.passNT)}。` +
+      r.message;
   }
 
   pickerA.addEventListener('input', update);
   pickerB.addEventListener('input', update);
+  pickerA.addEventListener('change', () => { update(); announce(); });
+  pickerB.addEventListener('change', () => { update(); announce(); });
 
   document.getElementById('swapBtn').addEventListener('click', () => {
     const tmp = pickerA.value;
     pickerA.value = pickerB.value;
     pickerB.value = tmp;
     update();
+    announce();
   });
 
   document.getElementById('copyA').addEventListener('click', () =>
-    copyText(pickerA.value.toUpperCase(), '文字色をコピーしました'));
+    navigator.clipboard.writeText(pickerA.value.toUpperCase()));
   document.getElementById('copyB').addEventListener('click', () =>
-    copyText(pickerB.value.toUpperCase(), '背景色をコピーしました'));
-
-  function copyText(text, msg) {
-    navigator.clipboard.writeText(text).then(() => showToast(msg));
-  }
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2000);
-  }
+    navigator.clipboard.writeText(pickerB.value.toUpperCase()));
 
   update();
 </script>
