@@ -16,14 +16,14 @@
      border-ui #767676 on bg #f4f4f8 → 4.14:1 ✓ / on card #ffffff → 4.54:1 ✓ (非テキスト3:1以上)
      pass #14534d on card #ffffff → 8.85:1 ✓ (判定の文字・枠)
      fail #991b1b on card #ffffff → 8.31:1 ✓ (判定の文字・枠)
-     accent #C54141 on bg #f4f4f8 → 4.55:1 / on card #ffffff → 4.99:1
+     accent #C54141 on card #ffffff → 4.99:1 ✓ (ボタン hover 時の枠・アイコン。非テキスト3:1以上)
    Dark:
      text #f5f3ff on bg #12111f → 17.01:1 ✓ / on card #1e1c30 → 15.15:1 ✓
      label #d0cef0 on card #1e1c30 → 10.89:1 ✓
      border-ui #9896c0 on bg #12111f → 6.63:1 ✓ / on card #1e1c30 → 5.90:1 ✓
      pass #6ee7d8 on card #1e1c30 → 11.14:1 ✓
      fail #fca5a5 on card #1e1c30 → 8.75:1 ✓
-     accent #f47272 on bg #12111f → 6.66:1 / on card #1e1c30 → 5.93:1
+     accent #f47272 on card #1e1c30 → 5.93:1 ✓
 ============================================= */
 
 :root {
@@ -114,10 +114,6 @@ body {
   font-weight: 900;
   color: var(--text);
   line-height: 1.2;
-}
-.title-area h1 em {
-  font-style: normal;
-  color: var(--accent);
 }
 .title-area p {
   font-size: 16px;
@@ -395,6 +391,10 @@ body {
 </style>
 </head>
 <body>
+<script>
+  // 最初の描画からブラウザの設定どおりのテーマで表示する（ライトからの切り替えが見えないように）
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) document.body.classList.add('dark');
+</script>
 
 <button class="theme-toggle" id="themeBtn">
   <span id="themeIcon">🌙</span>
@@ -405,7 +405,7 @@ body {
 
   <!-- タイトル -->
   <div class="title-area">
-    <h1>🎨 カジュアル<em>カラー</em>コントラストチェッカー</h1>
+    <h1>🎨 カジュアルカラーコントラストチェッカー</h1>
     <p>文字色と背景色を選んで、見やすさを確認しよう</p>
   </div>
 
@@ -500,14 +500,20 @@ body {
 
 <script>
   // テーマ
+  // 初期値はブラウザの設定（prefers-color-scheme）に合わせ、設定が変わったときも追従する。
+  // ボタンで切り替えたテーマは保存しない
   const themeBtn = document.getElementById('themeBtn');
+  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
   let isDark = false;
-  themeBtn.addEventListener('click', () => {
-    isDark = !isDark;
+  function applyTheme(dark) {
+    isDark = dark;
     document.body.classList.toggle('dark', isDark);
     document.getElementById('themeIcon').textContent  = isDark ? '☀️' : '🌙';
     document.getElementById('themeLabel').textContent = isDark ? 'ライトに変更' : 'ダークに変更';
-  });
+  }
+  applyTheme(darkQuery.matches);
+  darkQuery.addEventListener('change', e => applyTheme(e.matches));
+  themeBtn.addEventListener('click', () => applyTheme(!isDark));
 
   const pickerA = document.getElementById('pickerA');
   const pickerB = document.getElementById('pickerB');
