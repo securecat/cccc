@@ -12,6 +12,8 @@ This statement covers:
 
 - The CCCC web page (https://securecat.github.io/cccc/)
 
+The color dialog that opens when you click a color swatch, including its eyedropper, is not part of CCCC. It is the browser's own color dialog, so its accessibility is outside the scope of this statement. In Chrome and Edge, you can also type a color value in the dialog as RGB, HSL, or HEX with the keyboard, without using the eyedropper.
+
 For the UI, we target WCAG 2.2 Level AA, and we treat it as a minimum, not a ceiling. Some of our own rules are stricter than AA (see [Contributor Expectations](#contributor-expectations)). We have not had a third-party evaluation, so this is a target, not a claim of conformance.
 
 ## How CCCC Judges Contrast
@@ -28,25 +30,16 @@ For the UI, we target WCAG 2.2 Level AA, and we treat it as a minimum, not a cei
 - Operating systems: tested on Windows. We have not yet tested macOS, iOS, or Android
 - Eyedropper: tested on Chrome and Edge on Windows, where it can pick colors outside the browser, such as in PowerPoint
 - Screen readers: tested with NVDA on Windows. We have not yet tested other screen readers, including PC-Talker and VoiceOver
-- All of CCCC's own controls are native buttons and color inputs, so they can be operated with a keyboard alone. However, the color inputs don't show where the focus is, and the eyedropper needs a pointing device such as a mouse (see [Known Limitations](#known-limitations))
+- All of CCCC's own controls are native buttons and color inputs, so they can be operated with a keyboard alone
+- When you choose a color or swap the two colors, the colors, the contrast ratio, and the results are announced through a live region
 
 ## Known Limitations
 
-- **The focus is not visible on the color inputs for the text color and the background color.** Each color input is made transparent and laid over its color swatch.
-  - Workaround: The Tab order is: theme toggle → text color → copy text color → swap colors → background color → copy background color. When the focus is on a color input, press Enter or Space to open the browser's color dialog.
-- **Changes in the contrast ratio and the results are not announced automatically when you change a color.**
-  - Workaround: After choosing a color, move your screen reader to "コントラスト比" (contrast ratio) and read on from there.
-- **The "copied" message after copying a HEX value disappears after 2 seconds, and it is not announced by screen readers.**
+- **The text in the preview may not meet the contrast criteria.** The preview shows text in the colors you chose, so its contrast depends on those colors. This is by design.
+- **In the light theme, the word "カラー" in the title is 4.55:1 against the background,** below the 7:1 target for body text in [Contributor Expectations](#contributor-expectations).
+- **When you copy a HEX value, there is no message saying it was copied.** The copy button only changes color while it is pressed, and screen readers don't announce anything.
   - Workaround: Check the result by pasting the value where you need it.
-- **You can't type a color value (HEX) directly on the CCCC page.** Colors are chosen in the browser's color dialog. How that dialog works with a keyboard or a screen reader depends on the browser and the OS, and is outside the scope of CCCC. The eyedropper in the dialog needs a pointing device.
-  - Workaround: In the color dialog of Chrome and Edge, you can type a HEX or RGB value with the keyboard.
-- **The visible label of the theme toggle ("ダーク" or "ライトに戻す") differs from the name that screen readers announce ("テーマ切り替え").** If you use voice control, say "テーマ切り替え" to press it. The theme doesn't follow the OS dark mode setting, and your choice is not saved, so the page always opens in the light theme.
-- **Some colors don't meet the contrast targets in [Contributor Expectations](#contributor-expectations).**
-  - In the light theme, the text of items judged "OK" is 4.68:1 against its background, below the 7:1 target for body text
-  - In the light theme, the word "カラー" in the title is 4.55:1 against the background
-  - In the light theme, the borders of items and the message judged "OK" are 2.55:1 against the surrounding background, below the 3:1 target. The results can still be read from the text "✓ OK" and "✗ NG"
-- **When the page opens, the cards appear with a short bouncing animation, and the swap button rotates when you hover over it.** These animations don't follow the OS setting to reduce motion.
-- **You can't move to each part of the page using headings or landmarks with a screen reader.** The only heading is the page title.
+- **The theme doesn't follow the OS dark mode setting, and your choice is not saved,** so the page always opens in the light theme.
 - **The UI is available in Japanese only.**
 
 ## Reporting Accessibility Barriers
@@ -92,7 +85,7 @@ When you change the UI:
 
 After the change, check that everything can be operated with a keyboard alone, and that a screen reader such as NVDA reads the content correctly.
 
-When you change how the contrast ratio is calculated or judged, follow the formula in WCAG 2.2, and don't round the displayed ratio up or to the nearest value, so that a color pair falling just short of a criterion is never shown as "OK". Don't show the results by color alone; keep text such as "✓ OK" and "✗ NG". The comment at the top of the CSS in `index.html` lists the contrast ratios we checked for the color palette, so update it when you change the colors.
+When you change how the contrast ratio is calculated or judged, follow the formula in WCAG 2.2, and don't round the displayed ratio up or to the nearest value, so that a color pair falling just short of a criterion is never shown as "OK". Don't show the results by color alone; keep text such as "✓ OK" and "✗ NG". The results are announced through a live region (`#announce`), so when you change what the results show, update the announced text as well. The comment at the top of the CSS in `index.html` lists the contrast ratios we checked for the color palette, so update it when you change the colors.
 
 ## Ownership and Maintenance
 
@@ -118,6 +111,8 @@ CCCC（カジュアルカラーコントラストチェッカー）は、それ�
 
 - CCCC のウェブページ（https://securecat.github.io/cccc/）
 
+色見本をクリックすると開く色選択ダイアログ（スポイトを含む）は、CCCC の一部ではなく、ブラウザ標準の機能です。そのため、ダイアログの中のアクセシビリティは、この文書の対象外です。なお、Chrome、Edge の色選択ダイアログでは、スポイトを使わずに、色の値を RGB、HSL、HEX でキーボードから入力することもできます。
+
 UIは WCAG 2.2 のレベル AA を目標とし、これを上限ではなく下限と考えています。AAより厳しい独自の基準もあります（[貢献者への期待](#貢献者への期待)を参照）。第三者による試験は受けていないため、これは目標であり、適合を表明するものではありません。
 
 ## コントラスト比の判定のしかた
@@ -134,25 +129,16 @@ UIは WCAG 2.2 のレベル AA を目標とし、これを上限ではなく下�
 - OS：Windows で動作を確認済み。macOS、iOS、Android ではまだ試していません
 - スポイト：Windows の Chrome、Edge で、ブラウザの外（PowerPoint など）の色を拾えることを確認済み
 - スクリーンリーダー：Windows の NVDA で読み上げを確認済み。PC-Talker、VoiceOver など、ほかのスクリーンリーダーではまだ試していません
-- CCCC 自身の操作部品は、すべてネイティブのボタンと色の選択欄なので、キーボードだけで操作できます。ただし、色の選択欄ではフォーカスの位置が見えません。また、スポイトにはマウスなどのポインティングデバイスが必要です（[既知の制限](#既知の制限)を参照）
+- CCCC 自身の操作部品は、すべてネイティブのボタンと色の選択欄なので、キーボードだけで操作できます
+- 色を選んだときと、2色を入れ替えたときは、2つの色・コントラスト比・判定結果をライブリージョンで読み上げます
 
 ## 既知の制限
 
-- **「文字の色」「背景の色」の選択欄にフォーカスしても、フォーカスの位置が見えません。** 選択欄を透明にして、色見本に重ねているためです。
-  - 回避策：Tabキーで移動する順番は「テーマ切り替え → 文字の色 → 文字色をコピー → 2色を入れ替え → 背景の色 → 背景色をコピー」です。色の選択欄にフォーカスがある状態で Enter か Space を押すと、ブラウザの色選択ダイアログが開きます。
-- **色を変えても、コントラスト比や判定結果の変化は自動では読み上げられません。**
-  - 回避策：色を選んだあと、スクリーンリーダーで「コントラスト比」から先を読んでください。
-- **HEX値をコピーしたときの「コピーしました」というメッセージは、2秒で消え、スクリーンリーダーでは読み上げられません。**
+- **プレビューの文字は、コントラストの基準を満たさないことがあります。** プレビューは選んだ色そのもので表示するため、コントラストは選んだ色によって決まります。これは意図したものです。
+- **ライトテーマで、タイトルの「カラー」の文字は、背景に対して 4.55:1 です。** [貢献者への期待](#貢献者への期待)の本文の基準（7:1）に届いていません。
+- **HEX値をコピーしても、コピーしたことを知らせるメッセージは出ません。** コピーボタンは押している間だけ色が変わり、スクリーンリーダーでは何も読み上げられません。
   - 回避策：コピーできたかどうかは、貼り付け先で確かめてください。
-- **色の値（HEX）を、CCCC の画面で直接入力することはできません。** 色はブラウザの色選択ダイアログで選びます。このダイアログのキーボード操作や読み上げは、ブラウザと OS によって異なり、CCCC の対象外です。また、ダイアログのスポイトにはポインティングデバイスが必要です。
-  - 回避策：Chrome、Edge の色選択ダイアログでは、HEX や RGB の値をキーボードで入力できます。
-- **テーマ切り替えボタンの見た目のラベル（「ダーク」「ライトに戻す」）と、スクリーンリーダーが読み上げる名前（「テーマ切り替え」）が異なります。** 音声入力で押すときは「テーマ切り替え」と言ってください。また、テーマは OS のダークモードの設定に連動せず、選んだテーマも保存されないため、ページを開くと常にライトテーマで始まります。
-- **[貢献者への期待](#貢献者への期待)のコントラストの基準に届いていない色があります。**
-  - ライトテーマで、OK と判定された項目の文字は、背景に対して 4.68:1 で、本文の基準（7:1）に届いていません
-  - ライトテーマで、タイトルの「カラー」の文字は、背景に対して 4.55:1 です
-  - ライトテーマで、OK と判定された項目とメッセージの枠線は、周囲の背景に対して 2.55:1 で、基準（3:1）に届いていません。判定結果は「✓ OK」「✗ NG」の文字でも読み取れます
-- **ページを開いたときにカードがはねるように表示されるアニメーションと、入れ替えボタンにマウスを乗せたときに回転するアニメーションがあります。** どちらも、OS の「視差効果を減らす」などの設定には従いません。
-- **スクリーンリーダーの見出しやランドマークでの移動で、ページの各部分へ移動できません。** 見出しはページのタイトルだけです。
+- **テーマは OS のダークモードの設定に連動せず、選んだテーマも保存されません。** ページを開くと、常にライトテーマで始まります。
 - **UIは日本語のみです。**
 
 ## アクセシビリティの問題を報告する
@@ -198,7 +184,7 @@ UIを変更するときは、次を守ってください。
 
 変更したあとは、キーボードだけですべて操作できること、NVDA などのスクリーンリーダーで内容が正しく読み上げられることを確認してください。
 
-コントラスト比の計算や判定を変更するときは、WCAG 2.2 の計算式に従い、表示するコントラスト比を切り上げたり四捨五入したりしないでください。基準にわずかに届かない色の組み合わせを「OK」と表示しないためです。また、判定結果を色だけで示さず、「✓ OK」「✗ NG」のような文字を残してください。`index.html` の CSS の冒頭のコメントに、カラーパレットで確認したコントラスト比を書いているので、色を変えたら更新してください。
+コントラスト比の計算や判定を変更するときは、WCAG 2.2 の計算式に従い、表示するコントラスト比を切り上げたり四捨五入したりしないでください。基準にわずかに届かない色の組み合わせを「OK」と表示しないためです。また、判定結果を色だけで示さず、「✓ OK」「✗ NG」のような文字を残してください。判定結果はライブリージョン（`#announce`）でも読み上げているので、表示する判定の内容を変えるときは、読み上げる文も合わせて更新してください。`index.html` の CSS の冒頭のコメントに、カラーパレットで確認したコントラスト比を書いているので、色を変えたら更新してください。
 
 ## 責任者と保守
 
