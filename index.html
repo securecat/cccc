@@ -17,6 +17,7 @@
      pass #14534d on card #ffffff → 8.85:1 ✓ (判定の文字・枠)
      fail #991b1b on card #ffffff → 8.31:1 ✓ (判定の文字・枠)
      accent #C54141 on card #ffffff → 4.99:1 ✓ (ボタン hover 時の枠・アイコン。非テキスト3:1以上)
+     focus #1a1a1a on bg #f4f4f8 → 15.86:1 ✓ / on card #ffffff → 17.40:1 ✓ (フォーカスインジケーター)
    Dark:
      text #f5f3ff on bg #12111f → 17.01:1 ✓ / on card #1e1c30 → 15.15:1 ✓
      label #d0cef0 on card #1e1c30 → 10.89:1 ✓
@@ -24,6 +25,7 @@
      pass #6ee7d8 on card #1e1c30 → 11.14:1 ✓
      fail #fca5a5 on card #1e1c30 → 8.75:1 ✓
      accent #f47272 on card #1e1c30 → 5.93:1 ✓
+     focus #f5f3ff on bg #12111f → 17.01:1 ✓ / on card #1e1c30 → 15.15:1 ✓
 ============================================= */
 
 :root {
@@ -35,6 +37,7 @@
   --pass:            #14534d;
   --fail:            #991b1b;
   --accent:          #C54141;
+  --focus:           #1a1a1a;
   --radius: 18px;
   --f: sans-serif;
 }
@@ -48,6 +51,7 @@ body.dark {
   --pass:            #6ee7d8;
   --fail:            #fca5a5;
   --accent:          #f47272;
+  --focus:           #f5f3ff;
 }
 
 body {
@@ -61,6 +65,12 @@ body {
   align-items: center;
   justify-content: center;
   padding: 1.5rem 1rem;
+}
+
+/* フォーカスインジケーター（要素から離して表示する。色見本の hover の太い枠とも重ならない距離） */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
 }
 
 /* 視覚的に隠し、スクリーンリーダーには読ませる */
@@ -153,9 +163,7 @@ body {
   width: 100%;
   aspect-ratio: 1;
   margin-bottom: 0.75rem;
-  transition: transform 0.15s;
 }
-.color-trigger:hover { transform: scale(1.03); }
 
 .color-trigger input[type="color"] {
   display: block;
@@ -166,6 +174,10 @@ body {
   border-radius: 12px;
   background: none;
   cursor: pointer;
+}
+/* hover 時は枠を太くする（border を太くするとレイアウトがずれるため、外側に box-shadow を足す） */
+.color-trigger input[type="color"]:hover {
+  box-shadow: 0 0 0 2px var(--border-ui);
 }
 .color-trigger input[type="color"]::-webkit-color-swatch-wrapper {
   padding: 0;
