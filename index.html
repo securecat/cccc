@@ -16,7 +16,6 @@
      border-ui #767676 on bg #f4f4f8 → 4.14:1 ✓ / on card #ffffff → 4.54:1 ✓ (非テキスト3:1以上)
      pass #14534d on card #ffffff → 8.85:1 ✓ (判定の文字・枠)
      fail #991b1b on card #ffffff → 8.31:1 ✓ (判定の文字・枠)
-     accent #C54141 on card #ffffff → 4.99:1 ✓ (ボタン hover 時の枠・アイコン。非テキスト3:1以上)
      focus #1a1a1a on bg #f4f4f8 → 15.86:1 ✓ / on card #ffffff → 17.40:1 ✓ (フォーカスインジケーター)
    Dark:
      text #f5f3ff on bg #12111f → 17.01:1 ✓ / on card #1e1c30 → 15.15:1 ✓
@@ -24,7 +23,6 @@
      border-ui #9896c0 on bg #12111f → 6.63:1 ✓ / on card #1e1c30 → 5.90:1 ✓
      pass #6ee7d8 on card #1e1c30 → 11.14:1 ✓
      fail #fca5a5 on card #1e1c30 → 8.75:1 ✓
-     accent #f47272 on card #1e1c30 → 5.93:1 ✓
      focus #f5f3ff on bg #12111f → 17.01:1 ✓ / on card #1e1c30 → 15.15:1 ✓
 ============================================= */
 
@@ -36,7 +34,6 @@
   --border-ui:       #767676;
   --pass:            #14534d;
   --fail:            #991b1b;
-  --accent:          #C54141;
   --focus:           #1a1a1a;
   --radius: 18px;
   --f: sans-serif;
@@ -50,7 +47,6 @@ body.dark {
   --border-ui:       #9896c0;
   --pass:            #6ee7d8;
   --fail:            #fca5a5;
-  --accent:          #f47272;
   --focus:           #f5f3ff;
 }
 
@@ -104,7 +100,6 @@ body {
   gap: 0.4rem;
   z-index: 100;
 }
-.theme-toggle:hover { background: var(--bg); }
 
 /* ── レイアウト ── */
 .app {
@@ -233,11 +228,6 @@ body {
   color: var(--text);
   flex-shrink: 0;
 }
-.copy-btn:hover {
-  background: var(--bg);
-  border-color: var(--accent);
-  color: var(--accent);
-}
 .copy-btn svg {
   width: 16px; height: 16px;
   fill: currentColor;
@@ -257,9 +247,11 @@ body {
   color: var(--text);
   flex-shrink: 0;
 }
+/* hover 時は枠を太くする（border を太くするとレイアウトがずれるため、外側に box-shadow を足す） */
+.theme-toggle:hover,
+.copy-btn:hover,
 .swap-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  box-shadow: 0 0 0 2px var(--border-ui);
 }
 
 /* 押している間は色を反転させる */
