@@ -82,7 +82,7 @@ When you change the UI:
 
 After the change, check that everything can be operated with a keyboard alone, and that a screen reader such as NVDA reads the content correctly.
 
-When you change how the contrast ratio is calculated or judged, follow the formula in WCAG 2.2, and don't round the displayed ratio up or to the nearest value, so that a color pair falling just short of a criterion is never shown as "OK". Don't show the results by color alone; keep text such as "✓ OK" and "✗ NG". The results are announced through a live region (`#announce`), so when you change what the results show, update the announced text as well. The comment at the top of the CSS in `index.html` lists the contrast ratios we checked for the color palette, so update it when you change the colors.
+When you change how the contrast ratio is calculated or judged, follow the formula in WCAG 2.2, and don't round the displayed ratio up or to the nearest value, so that a color pair falling just short of a criterion is never shown as "OK". Don't show the results by color alone; keep text such as "✓ OK" and "✗ NG". Don't add transitions or animations, such as on hover or when switching themes; show hover and pressed states with changes in color or border thickness only. The results are announced through a live region (`#announce`), so when you change what the results show, update the announced text as well. The comment at the top of the CSS in `index.html` lists the contrast ratios we checked for the color palette, so update it when you change the colors.
 
 ## Ownership and Maintenance
 
@@ -178,7 +178,7 @@ UIを変更するときは、次を守ってください。
 
 変更したあとは、キーボードだけですべて操作できること、NVDA などのスクリーンリーダーで内容が正しく読み上げられることを確認してください。
 
-コントラスト比の計算や判定を変更するときは、WCAG 2.2 の計算式に従い、表示するコントラスト比を切り上げたり四捨五入したりしないでください。基準にわずかに届かない色の組み合わせを「OK」と表示しないためです。また、判定結果を色だけで示さず、「✓ OK」「✗ NG」のような文字を残してください。判定結果はライブリージョン（`#announce`）でも読み上げているので、表示する判定の内容を変えるときは、読み上げる文も合わせて更新してください。`index.html` の CSS の冒頭のコメントに、カラーパレットで確認したコントラスト比を書いているので、色を変えたら更新してください。
+コントラスト比の計算や判定を変更するときは、WCAG 2.2 の計算式に従い、表示するコントラスト比を切り上げたり四捨五入したりしないでください。基準にわずかに届かない色の組み合わせを「OK」と表示しないためです。また、判定結果を色だけで示さず、「✓ OK」「✗ NG」のような文字を残してください。hover やテーマの切り替えなどに、トランジションやアニメーションを付けないでください。hover や押している間の状態は、色や枠の太さの変化だけで示してください。判定結果はライブリージョン（`#announce`）でも読み上げているので、表示する判定の内容を変えるときは、読み上げる文も合わせて更新してください。`index.html` の CSS の冒頭のコメントに、カラーパレットで確認したコントラスト比を書いているので、色を変えたら更新してください。
 
 ## 責任者と保守
 
