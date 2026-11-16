@@ -18,9 +18,6 @@ For the UI, we target WCAG 2.2 Level AA, and we treat it as a minimum, not a cei
 - Operating systems: tested on Windows. We have not yet tested macOS, iOS, or Android
 - Eyedropper: tested on Chrome and Edge on Windows, where it can pick colors outside the browser, such as in PowerPoint
 - Screen readers: tested with NVDA on Windows. We have not yet tested other screen readers, including PC-Talker and VoiceOver
-- All of CCCC's own controls are native buttons and color inputs, so they can be operated with a keyboard alone
-- When you choose a color or swap the two colors, the colors, the contrast ratio, and the results are announced through a live region
-- The page opens in the light or dark theme according to your browser's color scheme setting. You can also switch the theme with the button at the top right, but your choice is not saved
 
 ## Known Limitations
 
@@ -102,9 +99,6 @@ UIは WCAG 2.2 のレベル AA を目標とし、これを上限ではなく下�
 - OS：Windows で動作を確認済み。macOS、iOS、Android ではまだ試していません
 - スポイト：Windows の Chrome、Edge で、ブラウザの外（PowerPoint など）の色を拾えることを確認済み
 - スクリーンリーダー：Windows の NVDA で読み上げを確認済み。PC-Talker、VoiceOver など、ほかのスクリーンリーダーではまだ試していません
-- CCCC 自身の操作部品は、すべてネイティブのボタンと色の選択欄なので、キーボードだけで操作できます
-- 色を選んだときと、2色を入れ替えたときは、2つの色・コントラスト比・判定結果をライブリージョンで読み上げます
-- ページは、ブラウザのカラースキームの設定に合わせて、ライトテーマかダークテーマで開きます。右上のボタンで切り替えることもできますが、切り替えたテーマは保存されません
 
 ## 既知の制限
 
