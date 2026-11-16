@@ -1,12 +1,8 @@
 # Accessibility
 
-Last updated: 2026-11-09
+Last updated: 2026-11-17
 
 ## Priorities and Goals
-
-CCCC (Casual Color Contrast Checker) is itself an accessibility tool. It checks whether a combination of text and background colors is easy to read, including for people with low vision or color vision deficiencies, using the WCAG 2.2 contrast ratio criteria. It aims to let people check colors with nothing but a browser, even in workplaces where they can't freely install software, including colors outside the browser, such as those in PowerPoint slides.
-
-If the tool for checking contrast is itself hard to use, it gets in the way of people trying to make accessible materials. So we also care about the accessibility of CCCC's own UI.
 
 This statement covers:
 
@@ -15,14 +11,6 @@ This statement covers:
 The color dialog that opens when you click a color swatch, including its eyedropper, is not part of CCCC. It is the browser's own color dialog, so its accessibility is outside the scope of this statement. In Chrome and Edge, you can also type a color value in the dialog as RGB, HSL, or HEX with the keyboard, without using the eyedropper.
 
 For the UI, we target WCAG 2.2 Level AA, and we treat it as a minimum, not a ceiling. Some of our own rules are stricter than AA (see [Contributor Expectations](#contributor-expectations)). We have not had a third-party evaluation, so this is a target, not a claim of conformance.
-
-## How CCCC Judges Contrast
-
-- The contrast ratio is calculated with the relative luminance formula in WCAG 2.2
-- The ratio is shown with two decimal places, and further digits are truncated, not rounded. This prevents a color pair that falls just short of a criterion from looking as if it meets it
-- CCCC checks three criteria: AA for text (4.5:1), AAA for text (7:1), and AA for non-text elements (3:1)
-- Each result is shown not only by color but also by text: "✓ OK" or "✗ NG"
-- The criteria for large text (3:1 for AA, 4.5:1 for AAA) are not shown as separate items
 
 ## Supported Environments
 
@@ -45,7 +33,7 @@ Please report barriers through [GitHub Issues](https://github.com/securecat/cccc
 
 The following details help us, but all of them are optional:
 
-- What you were trying to do (for example, "I can't pick a color with the eyedropper")
+- What you were trying to do
 - The screen or feature you were using
 - What happened, and what you expected
 - Your OS, browser version, and CCCC version
@@ -82,7 +70,7 @@ When you change the UI:
 
 After the change, check that everything can be operated with a keyboard alone, and that a screen reader such as NVDA reads the content correctly.
 
-When you change how the contrast ratio is calculated or judged, follow the formula in WCAG 2.2, and don't round the displayed ratio up or to the nearest value, so that a color pair falling just short of a criterion is never shown as "OK". Don't show the results by color alone; keep text such as "✓ OK" and "✗ NG". Don't add transitions or animations, such as on hover or when switching themes; show hover and pressed states with changes in color or border thickness only. The results are announced through a live region (`#announce`), so when you change what the results show, update the announced text as well. The comment at the top of the CSS in `index.html` lists the contrast ratios we checked for the color palette, so update it when you change the colors.
+Don't show the results by color alone; keep text such as "✓ OK" and "✗ NG". Don't add transitions or animations, such as on hover or when switching themes; show hover and pressed states with changes in color or border thickness only. The results are announced through a live region (`#announce`), so when you change what the results show, update the announced text as well. The comment at the top of the CSS in `index.html` lists the contrast ratios we checked for the color palette, so update it when you change the colors.
 
 ## Ownership and Maintenance
 
@@ -96,13 +84,9 @@ Suggestions about this statement or our approach to accessibility are also welco
 
 # アクセシビリティ
 
-最終更新：2026-11-09
+最終更新：2026-11-17
 
 ## 優先事項と目標
-
-CCCC（カジュアルカラーコントラストチェッカー）は、それ自体がアクセシビリティのための道具です。文字と背景の色の組み合わせが、弱視の人や色覚に特性のある人も含めて読みやすいかどうかを、WCAG 2.2 のコントラスト比の基準で確かめられます。ソフトウェアを自由にインストールできない職場などでも、ブラウザだけで、PowerPoint の資料のようなブラウザの外の色も含めて確かめられることを目指しています。
-
-コントラストを確かめる道具そのものが使いにくければ、アクセシブルな資料をつくろうとする人の妨げになります。そのため、CCCC 自身のUIのアクセシビリティも大事にしています。
 
 この文書が対象とするのは、次のとおりです。
 
@@ -111,14 +95,6 @@ CCCC（カジュアルカラーコントラストチェッカー）は、それ�
 色見本をクリックすると開く色選択ダイアログ（スポイトを含む）は、CCCC の一部ではなく、ブラウザ標準の機能です。そのため、ダイアログの中のアクセシビリティは、この文書の対象外です。なお、Chrome、Edge の色選択ダイアログでは、スポイトを使わずに、色の値を RGB、HSL、HEX でキーボードから入力することもできます。
 
 UIは WCAG 2.2 のレベル AA を目標とし、これを上限ではなく下限と考えています。AAより厳しい独自の基準もあります（[貢献者への期待](#貢献者への期待)を参照）。第三者による試験は受けていないため、これは目標であり、適合を表明するものではありません。
-
-## コントラスト比の判定のしかた
-
-- コントラスト比は、WCAG 2.2 の相対輝度の計算式で求めています
-- コントラスト比は小数第2位まで表示し、それより下の桁は四捨五入せずに切り捨てています。基準にわずかに届かない色の組み合わせが、基準を満たしているように見えないようにするためです
-- 判定する基準は、AA テキスト（4.5:1）、AAA テキスト（7:1）、AA 非テキスト（3:1）の3つです
-- 判定結果は、色だけでなく「✓ OK」「✗ NG」の文字でも示しています
-- 大きいテキスト向けの基準（AA 3:1、AAA 4.5:1）は、個別の項目としては表示していません
 
 ## 対応している環境
 
@@ -141,7 +117,7 @@ UIは WCAG 2.2 のレベル AA を目標とし、これを上限ではなく下�
 
 次のことを書いてもらえると助かりますが、どれも任意です。
 
-- 何をしようとしていたか（例：「スポイトで色を拾えない」）
+- 何をしようとしていたか
 - 使っていた画面や機能
 - 何が起きたか、どうなると思っていたか
 - OS、ブラウザのバージョン、CCCC のバージョン
@@ -178,7 +154,7 @@ UIを変更するときは、次を守ってください。
 
 変更したあとは、キーボードだけですべて操作できること、NVDA などのスクリーンリーダーで内容が正しく読み上げられることを確認してください。
 
-コントラスト比の計算や判定を変更するときは、WCAG 2.2 の計算式に従い、表示するコントラスト比を切り上げたり四捨五入したりしないでください。基準にわずかに届かない色の組み合わせを「OK」と表示しないためです。また、判定結果を色だけで示さず、「✓ OK」「✗ NG」のような文字を残してください。hover やテーマの切り替えなどに、トランジションやアニメーションを付けないでください。hover や押している間の状態は、色や枠の太さの変化だけで示してください。判定結果はライブリージョン（`#announce`）でも読み上げているので、表示する判定の内容を変えるときは、読み上げる文も合わせて更新してください。`index.html` の CSS の冒頭のコメントに、カラーパレットで確認したコントラスト比を書いているので、色を変えたら更新してください。
+判定結果を色だけで示さず、「✓ OK」「✗ NG」のような文字を残してください。hover やテーマの切り替えなどに、トランジションやアニメーションを付けないでください。hover や押している間の状態は、色や枠の太さの変化だけで示してください。判定結果はライブリージョン（`#announce`）でも読み上げているので、表示する判定の内容を変えるときは、読み上げる文も合わせて更新してください。`index.html` の CSS の冒頭のコメントに、カラーパレットで確認したコントラスト比を書いているので、色を変えたら更新してください。
 
 ## 責任者と保守
 
